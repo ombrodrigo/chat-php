@@ -1,0 +1,21 @@
+version: '3'
+services:
+  server:
+    container_name: ws.server
+    image: php:7.2.7-alpine3.7
+    ports:
+      - 80:80
+      - 1234:1234
+    volumes:
+      - ./server:/var/www/html
+    working_dir: /var/www/html
+    command: 'php -S 0.0.0.0:80' 
+
+  composer:
+    container_name: ws.composer
+    image: composer
+    restart: 'no'
+    volumes:
+      - ./server:/server
+    working_dir: /server
+    command: 'install'
